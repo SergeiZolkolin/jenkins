@@ -10,7 +10,7 @@ package io.libs
 //  cfdt - файловый путь к dt или cf конфигурации для загрузки. Только для пакетного режима!
 //  isras - если true, то используется RAS для скрипта, в противном случае - пакетный режим
 //
-def createDb(platform, server1c, serversql, base, sqlUser, sqlPwd, cfdt, isras) {
+def createDb(platform, server1c, serversql, base, cfdt, isras) {
     utils = new Utils()
 
     cfdtpath = ""
@@ -27,18 +27,8 @@ def createDb(platform, server1c, serversql, base, sqlUser, sqlPwd, cfdt, isras) 
     if (platformLine != null && !platformLine.isEmpty()) {
         platformLine = "-platform ${platform}"
     }
-
-    sqluserLine = "";
-    if (sqluser != null && !sqluser.isEmpty()) {
-        sqluserLine = "-sqluser ${sqluser}"
-    }
-
-    sqlpasswLine = "";
-    if (sqlPwd != null && !sqlPwd.isEmpty()) {
-        sqlpasswLine = "-sqlPwd ${sqlPwd}"
-    }
     
-    returnCode = utils.cmd("oscript one_script_tools/dbcreator.os ${platformLine} -server1c ${server1c} -serversql ${serversql} ${sqluserLine} ${sqlpasswLine} -base ${base} ${cfdtpath} ${israspath}")
+    returnCode = utils.cmd("oscript one_script_tools/dbcreator.os ${platformLine} -server1c ${server1c} -serversql ${serversql} -base ${base} ${cfdtpath} ${israspath}")
     if (returnCode != 0) {
         utils.raiseError("Возникла ошибка при создании базы ${base} в кластере ${serversql}")
     }
