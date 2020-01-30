@@ -110,7 +110,9 @@ pipeline {
                                 "${server1c}:${agent1cPort}",
                                 serverSql,
                                 platform1c,
-                                testbase
+                                testbase,
+                                sqlUser,
+                                sqlPwd
                             )
                             // 5. Обновляем тестовую базу из хранилища 1С (если применимо)
                             updateDbTasks["updateTask_${testbase}"] = updateDbTask(
