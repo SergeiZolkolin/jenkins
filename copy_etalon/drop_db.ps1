@@ -99,15 +99,15 @@ if ($baseFound -eq $true) {
         }
 
         
-        $cmd_text = "sqlcmd -S $serverSql $sqluserline $sqlpwdline -i $dir\set_offline_db.sql -b -v infobase =$infobase"
+        $cmd_text = "sqlcmd -S $serverSql $sqluserline $sqlpwdline -i "$dir\set_offline_db.sql" -b -v infobase =$infobase"
         cmd.exe /c $cmd_text 
         write-output "Drop base..."
         $CurrentWorkingProcess.DropInfoBase($Base, 0)
-        $cmd_text = "sqlcmd -S $serverSql $sqluserline $sqlpwdline -i $dir\set_online_db.sql -b -v infobase =$infobase"
+        $cmd_text = "sqlcmd -S $serverSql $sqluserline $sqlpwdline -i "$dir\set_online_db.sql" -b -v infobase =$infobase"
         cmd.exe /c $cmd_text 
 
         if ($fulldrop -eq $true) {
-            $cmd_text = "sqlcmd -S $serverSql $sqluserline $sqlpwdline -i $dir\remove_db.sql -b -v infobase =$infobase"
+            $cmd_text = "sqlcmd -S $serverSql $sqluserline $sqlpwdline -i "$dir\remove_db.sql" -b -v infobase =$infobase"
             cmd.exe /c $cmd_text 
         }
 
